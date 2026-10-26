@@ -1,0 +1,242 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 33754
+  },
+  {
+    "path": "/shop",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 35804
+  },
+  {
+    "path": "/products/arc-ring",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 33386
+  },
+  {
+    "path": "/products/echo-earrings",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 33314
+  },
+  {
+    "path": "/collections",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 26794
+  },
+  {
+    "path": "/collections/silver-studies",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 30821
+  },
+  {
+    "path": "/collections/line-and-form",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 30891
+  },
+  {
+    "path": "/collections/small-rituals",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 30813
+  },
+  {
+    "path": "/cart",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25400
+  },
+  {
+    "path": "/checkout",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 22950
+  },
+  {
+    "path": "/checkout/result/review",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 23787
+  },
+  {
+    "path": "/checkout/result/pending",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 23802
+  },
+  {
+    "path": "/checkout/result/failed",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 23750
+  },
+  {
+    "path": "/checkout/result/cancelled",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 23620
+  },
+  {
+    "path": "/about",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25905
+  },
+  {
+    "path": "/contact",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25432
+  },
+  {
+    "path": "/faq",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 29581
+  },
+  {
+    "path": "/guides/sizing",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25957
+  },
+  {
+    "path": "/guides/care",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25560
+  },
+  {
+    "path": "/policies/shipping",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25887
+  },
+  {
+    "path": "/policies/returns",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25635
+  },
+  {
+    "path": "/policies/privacy",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25541
+  },
+  {
+    "path": "/policies/terms",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 25561
+  },
+  {
+    "path": "/admin/login",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 13012
+  },
+  {
+    "path": "/admin",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11752
+  },
+  {
+    "path": "/admin/products",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11773
+  },
+  {
+    "path": "/admin/products/new",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11793
+  },
+  {
+    "path": "/admin/products/p01",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11793
+  },
+  {
+    "path": "/admin/collections",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11782
+  },
+  {
+    "path": "/admin/orders",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11767
+  },
+  {
+    "path": "/admin/orders/WFC-1048",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11802
+  },
+  {
+    "path": "/admin/shipping",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11773
+  },
+  {
+    "path": "/admin/inquiries",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11776
+  },
+  {
+    "path": "/admin/settings",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 11773
+  },
+  {
+    "path": "/admin/session-expired",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 13043
+  },
+  {
+    "path": "/admin/access-denied",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 12123
+  },
+  {
+    "path": "/robots.txt",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 27
+  },
+  {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 110
+  },
+  {
+    "path": "/opengraph-image",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "bytes": 45125
+  },
+  {
+    "path": "/missing-page",
+    "status": 404,
+    "robots": "noindex, nofollow",
+    "bytes": 23124
+  }
+]
