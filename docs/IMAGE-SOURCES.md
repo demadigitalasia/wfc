@@ -37,3 +37,13 @@ The owner supplied four more cabochon reference photos for upcoming jewelry and 
 - `palm-root.png` — Palm root; charcoal, cream, and gray fossil-like cellular patterns, with some elongated blue-gray striations.
 
 Use these images as visual references for future jewelry concepts. Stone names and availability are owner-provided; generated visuals should not be treated as confirmation of the exact material or current inventory.
+
+## Collection imagery refresh (2026-10-26)
+
+Three new AI-generated editorial concept images were created for the collection index:
+
+- `public/images/editorial/collection-silver-studies-v2.jpg` — sculptural hand-finished silver ring on dark stone.
+- `public/images/editorial/collection-line-and-form-v2.jpg` — geometric silver pendant against pale limestone.
+- `public/images/editorial/collection-small-rituals-v2.jpg` — small silver huggie hoops in a quiet still life.
+
+These images illustrate the collection directions and are generated design concepts, not photographs of confirmed WFC products or inventory. They replace the previous generic collection placeholder imagery on the collections page.

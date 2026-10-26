@@ -17,7 +17,9 @@ import {
   type Order,
   type Inquiry,
 } from "@/lib/data";
-export type CollectionData = (typeof collections)[number];
+export type CollectionData = Omit<(typeof collections)[number], "imageAlt"> & {
+  imageAlt?: string;
+};
 export type SiteSettings = {
   businessName: string;
   email: string;
@@ -35,6 +37,18 @@ const defaultSettings: SiteSettings = {
   expressUS: 16,
   standardIntl: 24,
   expressIntl: 42,
+};
+const legacyProductPrimaryImages: Record<string, string> = {
+  p01: "/images/ring-sculpture.svg",
+  p02: "/images/necklace-studio.svg",
+  p03: "/images/earrings-study.svg",
+  p04: "/images/silver-bracelet.svg",
+  p05: "/images/necklace-detail.svg",
+  p06: "/images/atelier-study.svg",
+  p07: "/images/pendant-detail.svg",
+  p08: "/images/jewelry-editorial.svg",
+  p09: "/images/silver-bracelet.svg",
+  p10: "/images/ring-sculpture.svg",
 };
 export type CartItem = { productId: string; size: string; quantity: number };
 type Store = {
@@ -61,7 +75,8 @@ type Store = {
 };
 const StoreContext = createContext<Store | null>(null);
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [collectionData, setCollectionData] = useState(collections);
+  const [collectionData, setCollectionData] =
+    useState<CollectionData[]>(collections);
   const [categoryData, setCategoryData] = useState(categories);
   const [settings, setSettings] = useState(defaultSettings);
   const [products, setProducts] = useState(initialProducts);
@@ -76,13 +91,58 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       const raw = localStorage.getItem("wfc-store-v1");
       if (raw) {
         const s = JSON.parse(raw);
-        if (Array.isArray(s.products) && s.products.length)
-          setProducts(s.products);
+        if (Array.isArray(s.products) && s.products.length) {
+          const storedProducts = s.products.map((storedProduct: Product) => {
+            const currentProduct = initialProducts.find(
+              (product) => product.id === storedProduct.id,
+            );
+            const storedImages = Array.isArray(storedProduct.images)
+              ? storedProduct.images
+              : [];
+
+            if (
+              !currentProduct ||
+              storedImages[0] !== legacyProductPrimaryImages[storedProduct.id]
+            ) {
+              return storedProduct;
+            }
+
+            return {
+              ...storedProduct,
+              images: [currentProduct.images[0], ...storedImages.slice(1)],
+            };
+          });
+
+          setProducts(storedProducts);
+        }
         if (Array.isArray(s.orders)) setOrders(s.orders.map(hydrateOrder));
         if (Array.isArray(s.inquiries)) setInquiries(s.inquiries);
         if (Array.isArray(s.cart)) setCart(s.cart);
-        if (Array.isArray(s.collectionData))
-          setCollectionData(s.collectionData);
+        if (Array.isArray(s.collectionData)) {
+          setCollectionData(
+            s.collectionData.map((storedCollection: CollectionData) => {
+              const currentCollection = collections.find(
+                (collection) => collection.slug === storedCollection.slug,
+              );
+              const previousDefaultImages = [
+                `/images/editorial/${storedCollection.slug}.jpg`,
+                storedCollection.slug === "silver-studies"
+                  ? "/images/ring-sculpture.svg"
+                  : "",
+                storedCollection.slug === "line-and-form"
+                  ? "/images/necklace-detail.svg"
+                  : "",
+                storedCollection.slug === "small-rituals"
+                  ? "/images/earrings-study.svg"
+                  : "",
+              ];
+              return currentCollection &&
+                previousDefaultImages.includes(storedCollection.image)
+                ? { ...storedCollection, image: currentCollection.image }
+                : storedCollection;
+            }),
+          );
+        }
         if (Array.isArray(s.categoryData)) setCategoryData(s.categoryData);
         if (s.settings) setSettings({ ...defaultSettings, ...s.settings });
       }

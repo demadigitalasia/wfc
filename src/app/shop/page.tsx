@@ -11,5 +11,7 @@ export default async function Page({
   searchParams: Promise<{ category?: string }>;
 }) {
   const params = await searchParams;
-  return <Shop initialCategory={params.category} />;
+  return (
+    <Shop key={params.category ?? "all"} initialCategory={params.category} />
+  );
 }

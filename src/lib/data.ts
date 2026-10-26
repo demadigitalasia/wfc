@@ -17,7 +17,8 @@ export type Product = {
   published: boolean;
 };
 const image = (name: string) => `/images/${name}.svg`;
-const editorialImage = (name: string) => `/images/editorial/${name}.jpg`;
+const editorialImage = (name: string, format = "jpg") =>
+  `/images/editorial/${name}.${format}`;
 const productConceptImage = (name: string) =>
   `/images/product-concepts/${name}.jpg`;
 export const categories = ["Rings", "Necklaces", "Earrings", "Bracelets"];
@@ -28,7 +29,8 @@ export const collections = [
     eyebrow: "Collection 01",
     description:
       "An exploration of reflection, line, and the quiet weight of silver. Sculptural pieces with an everyday sensibility.",
-    image: editorialImage("silver-studies"),
+    image: editorialImage("collection-silver-studies-v2"),
+    imageAlt: "Hand-hammered silver ring displayed on dark stone.",
   },
   {
     slug: "line-and-form",
@@ -36,7 +38,8 @@ export const collections = [
     eyebrow: "Collection 02",
     description:
       "A single line becomes something to wear. Delicate connections, considered proportions, and unexpected silhouettes.",
-    image: editorialImage("line-and-form"),
+    image: editorialImage("collection-line-and-form-v2"),
+    imageAlt: "Geometric silver pendant necklace against pale limestone.",
   },
   {
     slug: "small-rituals",
@@ -44,7 +47,9 @@ export const collections = [
     eyebrow: "Collection 03",
     description:
       "The pieces you reach for without thinking. Familiar shapes, tactile details, and a little everyday intention.",
-    image: editorialImage("small-rituals"),
+    image: editorialImage("collection-small-rituals-v2"),
+    imageAlt:
+      "Small hammered silver huggie earrings on ivory paper beside a smooth stone.",
   },
 ];
 export const initialProducts: Product[] = [

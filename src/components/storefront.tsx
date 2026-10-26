@@ -432,7 +432,7 @@ export function CollectionsPage() {
             <div className="collection-row-image">
               <img
                 src={c.image}
-                alt={`${c.name} jewelry collection`}
+                alt={c.imageAlt ?? `${c.name} jewelry collection`}
                 loading="lazy"
               />
             </div>

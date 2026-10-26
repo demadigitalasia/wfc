@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import {
+  ChevronDown,
   ArrowRight,
   Search,
   ShoppingBag,
@@ -59,8 +60,10 @@ export function Overlay({
   children,
   className = "",
   dialogId,
+  headingContent,
 }: {
   dialogId?: string;
+  headingContent?: ReactNode;
   open: boolean;
   onClose: () => void;
   title: string;
@@ -94,7 +97,10 @@ export function Overlay({
     >
       <div className="overlay-inner">
         <div className="overlay-top">
-          <h2 id={id}>{title}</h2>
+          <h2 id={id} className={headingContent ? "sr-only" : undefined}>
+            {title}
+          </h2>
+          {headingContent}
           <button className="icon-button" onClick={onClose} aria-label="Close">
             <X size={22} />
           </button>
@@ -219,6 +225,233 @@ function Bag() {
     </Overlay>
   );
 }
+const navigationGroups = [
+  {
+    title: "Shop",
+    links: [
+      ["Shop All", "/shop"],
+      ...["Rings", "Necklaces", "Earrings", "Bracelets"].map((name) => [
+        name,
+        `/shop?category=${name}`,
+      ]),
+    ],
+  },
+  {
+    title: "Collections",
+    links: [
+      ["All Collections", "/collections"],
+      ["Silver Studies", "/collections/silver-studies"],
+      ["Line & Form", "/collections/line-and-form"],
+      ["Small Rituals", "/collections/small-rituals"],
+      ["Indonesian Stone Studies", "/collections/indonesian-stones"],
+    ],
+  },
+  {
+    title: "Client Care",
+    links: [
+      ["Size Guide", "/guides/sizing"],
+      ["Jewelry Care", "/guides/care"],
+      ["Shipping & Delivery", "/policies/shipping"],
+      ["Returns & Repairs", "/policies/returns"],
+      ["FAQ", "/faq"],
+      ["Contact", "/contact"],
+    ],
+  },
+];
+const navigationEditorial: Record<
+  string,
+  {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    image: string;
+    alt: string;
+    href: string;
+    caption: string;
+    notes: string[];
+  }
+> = {
+  Shop: {
+    eyebrow: "OBJECTS TO WEAR",
+    title: "Find your everyday extraordinary.",
+    copy: "Considered shapes, natural character. A piece that feels like you.",
+    image: "/images/editorial/wfc-hero.jpg",
+    alt: "Carnelian stone set in a sculptural silver ring",
+    href: "/shop",
+    caption: "Explore the considered collection",
+    notes: [
+      "Every piece, one point of view",
+      "Small sculptures for the hand",
+      "Fine lines, close to the heart",
+      "A little movement, a little light",
+      "Considered curves for everyday",
+    ],
+  },
+  Collections: {
+    eyebrow: "DIFFERENT EXPRESSIONS",
+    title: "Your own kind of wild.",
+    copy: "Explore a collection by its form, its feeling, or the stone at its heart.",
+    image: "/images/editorial/wfc-hero-02-chrysocolla.jpg",
+    alt: "Chrysocolla pendant and earrings in hand-finished silver",
+    href: "/collections/indonesian-stones",
+    caption: "The Indonesian stone studies",
+    notes: [
+      "Discover every expression",
+      "Reflection, texture, quiet weight",
+      "Delicate connections",
+      "The pieces you reach for",
+      "Natural color. Individual character.",
+    ],
+  },
+  "Client Care": {
+    eyebrow: "A LITTLE GUIDANCE",
+    title: "Here for the details.",
+    copy: "From finding your fit to caring for a favorite. Make yourself at home.",
+    image: "/images/editorial/craft-process.jpg",
+    alt: "Hand-finishing silver at the studio workbench",
+    href: "/contact",
+    caption: "A question? Let's talk.",
+    notes: [
+      "Find a comfortable fit",
+      "Keep your pieces at their best",
+      "From our studio to your door",
+      "A little reassurance",
+      "Answers, thoughtfully gathered",
+      "Speak with the studio",
+    ],
+  },
+};
+function NavigationGroup({
+  group,
+  mobile = false,
+  onNavigate,
+}: {
+  group: (typeof navigationGroups)[number];
+  mobile?: boolean;
+  onNavigate: () => void;
+}) {
+  const pathname = usePathname();
+  const editorial = navigationEditorial[group.title];
+  const ref = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const outside = (event: PointerEvent) => {
+      if (
+        !mobile &&
+        event.target instanceof Node &&
+        !ref.current?.contains(event.target)
+      )
+        ref.current?.removeAttribute("open");
+    };
+    document.addEventListener("pointerdown", outside);
+    return () => document.removeEventListener("pointerdown", outside);
+  }, [mobile]);
+  return (
+    <details
+      ref={ref}
+      className={`nav-group${mobile ? " nav-group-mobile" : ""}`}
+      name={mobile ? "mobile-navigation" : "desktop-navigation"}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          event.stopPropagation();
+          ref.current?.removeAttribute("open");
+          ref.current?.querySelector("summary")?.focus();
+        }
+      }}
+      onBlur={(event) => {
+        if (!mobile && !event.currentTarget.contains(event.relatedTarget))
+          ref.current?.removeAttribute("open");
+      }}
+    >
+      <summary
+        className={
+          group.links.some(([, href]) => href.split("?")[0] === pathname)
+            ? "active"
+            : ""
+        }
+      >
+        {mobile ? (
+          <>
+            <span className="mobile-chapter" aria-hidden="true">
+              {group.title === "Shop"
+                ? "01"
+                : group.title === "Collections"
+                  ? "02"
+                  : "04"}
+            </span>
+            <span className="mobile-nav-copy">
+              <span>{group.title}</span>
+              <small>
+                {group.title === "Shop"
+                  ? "Find your everyday piece"
+                  : group.title === "Collections"
+                    ? "Explore form, stone & feeling"
+                    : "For every little detail"}
+              </small>
+            </span>
+          </>
+        ) : (
+          group.title
+        )}
+        <ChevronDown size={13} />
+      </summary>
+      <div className="nav-dropdown">
+        {!mobile && (
+          <div className="nav-editorial-intro">
+            <span className="nav-eyebrow">{editorial.eyebrow}</span>
+            <h2>{editorial.title}</h2>
+            <p>{editorial.copy}</p>
+            <span className="nav-editorial-signature">
+              WILD FEATHER CREATIONS <FeatherMark />
+            </span>
+          </div>
+        )}
+        <div className="nav-dropdown-links">
+          {group.links.map(([label, href], index) => (
+            <Link
+              key={href}
+              href={href}
+              aria-current={
+                href !== "/shop" && !href.includes("?") && pathname === href
+                  ? "page"
+                  : undefined
+              }
+              onClick={() => {
+                ref.current?.removeAttribute("open");
+                onNavigate();
+              }}
+            >
+              {!mobile && (
+                <span className="nav-link-index">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              )}
+              <span className="nav-link-copy">
+                <span>{label}</span>
+                {!mobile && <small>{editorial.notes[index]}</small>}
+              </span>
+              {!mobile && <ArrowUpRight size={16} className="nav-link-arrow" />}
+            </Link>
+          ))}
+        </div>
+        {!mobile && (
+          <Link
+            href={editorial.href}
+            className="nav-preview"
+            onClick={() => {
+              ref.current?.removeAttribute("open");
+              onNavigate();
+            }}
+          >
+            <img src={editorial.image} alt={editorial.alt} />
+            <span>
+              {editorial.caption} <ArrowUpRight size={14} />
+            </span>
+          </Link>
+        )}
+      </div>
+    </details>
+  );
+}
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { cart, products, setBagOpen } = useStore();
@@ -269,18 +502,20 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <BrandLogo alt="" />
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/shop" className={pathname === "/shop" ? "active" : ""}>
-            Shop all
-          </Link>
+          {navigationGroups.slice(0, 2).map((group) => (
+            <NavigationGroup
+              group={group}
+              key={group.title}
+              onNavigate={() => {}}
+            />
+          ))}
           <Link
-            href="/collections"
-            className={pathname.startsWith("/collections") ? "active" : ""}
+            href="/about"
+            aria-current={pathname === "/about" ? "page" : undefined}
           >
-            Collections
+            Our Story
           </Link>
-          <Link href="/about" className={pathname === "/about" ? "active" : ""}>
-            Our story
-          </Link>
+          <NavigationGroup group={navigationGroups[2]} onNavigate={() => {}} />
         </nav>
         <div className="header-actions">
           <button
@@ -301,7 +536,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </button>
         </div>
       </header>
-      <main id="main-content">{children}</main>
+      <main
+        id="main-content"
+        className={pathname === "/" ? undefined : "interior-page"}
+      >
+        {children}
+      </main>
       <Footer />
       <Bag />
       <Overlay
@@ -362,92 +602,177 @@ export function SiteShell({ children }: { children: ReactNode }) {
         dialogId={menuId}
         onClose={() => setMenuOpen(false)}
         title="Explore WFC"
+        headingContent={
+          <Link
+            href="/"
+            className="menu-brand"
+            aria-label="Wild Feather Creations home"
+            onClick={() => setMenuOpen(false)}
+          >
+            <BrandLogo alt="" />
+          </Link>
+        }
         className="side-overlay menu-overlay"
       >
-        <nav aria-label="Mobile navigation">
-          {[
-            ["Shop all", "/shop"],
-            ["Collections", "/collections"],
-            ["Our story", "/about"],
-            ["Contact", "/contact"],
-            ["Size guide", "/guides/sizing"],
-          ].map(([t, url]) => (
-            <Link
-              href={url}
-              key={url}
-              onClick={() => setMenuOpen(false)}
-              aria-current={
-                pathname === url ||
-                (url === "/collections" && pathname.startsWith("/collections/"))
-                  ? "page"
-                  : undefined
-              }
-              className={
-                url === "/contact" || url === "/guides/sizing"
-                  ? "menu-secondary"
-                  : undefined
-              }
-            >
-              {t}
-              <ArrowUpRight size={24} />
-            </Link>
+        <button
+          className="mobile-menu-search"
+          onClick={() => {
+            setMenuOpen(false);
+            setSearchOpen(true);
+          }}
+        >
+          <Search size={18} />
+          <span>Find something that feels like you</span>
+          <ArrowRight size={16} />
+        </button>
+        <nav
+          aria-label="Mobile navigation"
+          className="mobile-navigation-groups"
+        >
+          {navigationGroups.slice(0, 2).map((group) => (
+            <NavigationGroup
+              mobile
+              group={group}
+              key={group.title}
+              onNavigate={() => setMenuOpen(false)}
+            />
           ))}
+          <Link
+            href="/about"
+            onClick={() => setMenuOpen(false)}
+            aria-current={pathname === "/about" ? "page" : undefined}
+          >
+            <span className="mobile-chapter" aria-hidden="true">
+              03
+            </span>
+            <span className="mobile-nav-copy">
+              <span>Our Story</span>
+              <small>The hands behind the pieces</small>
+            </span>
+            <ArrowUpRight size={18} />
+          </Link>
+          <NavigationGroup
+            mobile
+            group={navigationGroups[2]}
+            onNavigate={() => setMenuOpen(false)}
+          />
         </nav>
-        <p className="muted">Independent jewelry. A point of view.</p>
+        <Link
+          href="/collections/indonesian-stones"
+          className="mobile-menu-feature"
+          onClick={() => setMenuOpen(false)}
+        >
+          <img
+            src="/images/stone-studies/purple-chalcedony-earrings.jpg"
+            alt="Silver drop earrings with purple chalcedony cabochons"
+          />
+          <div>
+            <span className="mobile-feature-eyebrow">THE STONE EDIT</span>
+            <span className="mobile-feature-title">
+              Small details.
+              <br />
+              <em>Distinct character.</em>
+            </span>
+            <span className="mobile-feature-link">
+              Discover the studies <ArrowUpRight size={15} />
+            </span>
+          </div>
+        </Link>
+        <div className="mobile-menu-foot">
+          <span>
+            Independent by nature.
+            <br />
+            Considered by hand.
+          </span>
+          <Link href="/contact" onClick={() => setMenuOpen(false)}>
+            A note to the studio <ArrowUpRight size={14} />
+          </Link>
+        </div>
       </Overlay>
     </>
   );
 }
 function Footer() {
   return (
-    <footer>
-      <div className="footer-main">
-        <div className="footer-brand">
-          <BrandLogo className="footer-logo" variant="light" />
-          <p>
-            Objects to wear.
+    <footer className="studio-footer">
+      <div className="studio-footer-intro">
+        <div className="studio-footer-statement">
+          <p className="eyebrow">The Wild Feather point of view</p>
+          <h2>
+            Drawn to the
             <br />
-            <i>Stories to keep.</i>
+            <em>unexpected.</em>
+          </h2>
+          <p className="studio-footer-description">
+            Explore the stones, forms, and details behind Wild Feather
+            Creations.
           </p>
-          <span>
+          <Link
+            href="/collections/indonesian-stones"
+            className="studio-footer-story"
+          >
+            Discover the stone studies{" "}
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+        <figure className="studio-footer-image">
+          <img
+            src="/images/stone-studies/maligano-jasper-set.jpg"
+            alt="Jewelry design study exploring the natural patterns of Maligano jasper"
+            loading="lazy"
+            width={1024}
+            height={1024}
+          />
+          <figcaption>Stone studies / Maligano jasper</figcaption>
+        </figure>
+      </div>
+      <div className="studio-footer-details">
+        <div className="studio-footer-identity">
+          <Link href="/" aria-label="Wild Feather Creations home">
+            <BrandLogo className="footer-logo" variant="light" />
+          </Link>
+          <p>
             Independent jewelry & handmade creations.
             <br />
             Based in the United States.
-          </span>
+          </p>
         </div>
-        <div>
-          <p className="eyebrow">Explore</p>
-          <Link href="/shop">Shop all</Link>
-          <Link href="/collections">Collections</Link>
-          <Link href="/about">Our story</Link>
-          <Link href="/contact">Contact</Link>
+        <div className="studio-footer-contact">
+          <h3>A note to the studio</h3>
+          <p>
+            Questions about a piece,
+            <br />
+            its fit, or its care?
+          </p>
+          <Link href="/contact" className="studio-footer-story">
+            Get in touch <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
         </div>
-        <div>
-          <p className="eyebrow">A little guidance</p>
+        <nav aria-label="Footer collections">
+          <h3>Collections</h3>
+          <Link href="/shop">All pieces</Link>
+          <Link href="/collections">Explore collections</Link>
+          <Link href="/collections/indonesian-stones">Stone studies</Link>
+        </nav>
+        <nav aria-label="Footer client care">
+          <h3>Client care</h3>
           <Link href="/guides/sizing">Size guide</Link>
           <Link href="/guides/care">Jewelry care</Link>
           <Link href="/policies/shipping">Shipping & delivery</Link>
           <Link href="/policies/returns">Returns & repairs</Link>
-          <Link href="/faq">Frequently asked</Link>
-        </div>
-        <div className="footer-note">
-          <p className="eyebrow">A considered collection</p>
-          <p>
-            Made to be worn, loved,
-            <br />
-            and made your own.
-          </p>
-          <Link href="/shop" className="text-link">
-            Find your piece <ArrowUpRight size={15} />
-          </Link>
-        </div>
+          <Link href="/faq">FAQ</Link>
+        </nav>
+        <nav aria-label="Footer studio">
+          <h3>The studio</h3>
+          <Link href="/about">Our story</Link>
+          <Link href="/contact">Contact</Link>
+        </nav>
       </div>
-      <div className="footer-bottom">
+      <div className="studio-footer-bottom">
         <span>© {new Date().getFullYear()} Wild Feather Creations</span>
         <div>
           <Link href="/policies/privacy">Privacy</Link>
           <Link href="/policies/terms">Terms</Link>
-          <span>United States · English · USD</span>
         </div>
       </div>
     </footer>

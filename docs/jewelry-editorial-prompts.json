@@ -1,0 +1,20 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "key": "jewel-chrysocolla",
+      "ref": "wfc-hero-02-chrysocolla.jpg",
+      "prompt": "Create a new portrait 4:5 editorial jewelry photograph for a silversmith website. Reference image defines jewelry style, turquoise chrysocolla cabochon palette and handmade sterling-silver bezel craftsmanship. Show a sculptural sterling silver ring with an oval turquoise-and-charcoal chrysocolla cabochon, with fine hand-hammered shoulder details, resting at a three-quarter angle on pale ivory limestone. Finished silver jewelry must be the main subject, NOT loose stones. A distinct composition from the reference pendant and earrings. Realistic continuous silver setting, physically plausible ring shank, natural cabochon reflections, soft window light. Jewelry fills central 60 percent with breathing room for portrait and landscape crops. Warm ivory, charcoal and silver surroundings; color only in the stone. No text, no logos, no watermark. Editorial AI concept, not a claimed exact SKU."
+    },
+    {
+      "key": "jewel-clown",
+      "ref": "wfc-hero-02-clown-doublet.jpg",
+      "prompt": "Create a new portrait 4:5 editorial silversmith jewelry photograph. Reference image defines blue-and-cream Clown Doublet cabochon and handmade sterling silver bezel style. Show a pair of finished sterling-silver drop earrings with elongated blue-and-cream cabochons and subtle hammered silver bails, placed diagonally on a pale gray stone tile and ivory linen. Earrings are complete with anatomically plausible silver hooks, two coordinated but naturally different stone patterns, no loose stones. A clearly different composition from the reference necklace. Close-up realistic silver edges and gentle reflections, soft window daylight, quiet luxury editorial craftsmanship, jewelry grouped within central 60 percent for flexible crops, neutral ivory charcoal silver palette. No text, logos or watermark. Editorial AI concept, not exact sale SKU."
+    },
+    {
+      "key": "jewel-bumble",
+      "ref": "wfc-hero-02-bumble-bee-jasper.jpg",
+      "prompt": "Create a new portrait 4:5 editorial photograph for a handmade silversmith jewelry website. Reference defines the natural yellow-and-charcoal banded Bumble Bee Jasper cabochon and polished handmade silver bezel. Show a finished sterling-silver pendant necklace with a single oval yellow-and-black Bumble Bee Jasper cabochon, slightly sculptural bezel and textured silver bail, chain lying in a graceful open curve on matte charcoal slate next to an ivory limestone edge. Pendant fully visible, chain and bail physically plausible, no loose stones. Distinct still-life from the reference worn earring. Fine silver texture, realistic natural banding, soft daylight, understated ivory charcoal silver setting with stone yellow as the only strong color. Product grouped in central 60 percent with space for crops. No text, logos or watermark. Editorial AI concept, not exact sale SKU."
+    }
+  ]
+}

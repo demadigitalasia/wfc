@@ -53,7 +53,7 @@ Login ini adalah gate frontend berbasis session browser, **bukan autentikasi pro
 Proyek disiapkan untuk deployment Next.js biasa; tidak membutuhkan database atau secret agar build frontend berhasil.
 
 1. Hubungkan folder/repository ini ke proyek Vercel, atau gunakan Vercel CLI dengan akun yang dituju.
-2. Gunakan root proyek ini, install command `npm ci`, dan build command `npm run build`.
+2. Gunakan root proyek ini, framework **Next.js**, Node.js **24.x**, install command `npm ci`, dan build command `npm run build`. Biarkan Output Directory mengikuti default Next.js. Versi Node dikunci melalui `engines` di `package.json`.
 3. Biarkan `NEXT_PUBLIC_ENABLE_INDEXING=false` selama review.
 4. `NEXT_PUBLIC_SITE_URL` dapat diisi URL preview. Jika tidak diisi, aplikasi menggunakan `VERCEL_URL` yang disediakan platform.
 5. Aktifkan pengaturan perlindungan preview yang tersedia pada akun sebelum membagikan akses admin.

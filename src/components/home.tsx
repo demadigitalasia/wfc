@@ -625,22 +625,22 @@ export function Home() {
               {[
                 [
                   "Chrysocolla",
-                  "wfc-hero-02-chrysocolla.jpg",
+                  "/images/editorial/jewelry-studies/chrysocolla-ring.webp",
                   "silver-studies",
                 ],
                 [
                   "Clown Doublet",
-                  "wfc-hero-02-clown-doublet.jpg",
+                  "/images/editorial/jewelry-studies/clown-doublet-earrings.webp",
                   "line-and-form",
                 ],
                 [
                   "Bumble Bee Jasper",
-                  "wfc-hero-02-bumble-bee-jasper.jpg",
+                  "/images/editorial/jewelry-studies/bumble-bee-pendant.webp",
                   "small-rituals",
                 ],
                 [
                   "Indonesian stone studies",
-                  "wfc-hero.jpg",
+                  "/images/stone-studies/blue-opalized-wood-set.jpg",
                   "indonesian-stones",
                 ],
               ].map(([name, image, slug], index) => (
@@ -650,8 +650,8 @@ export function Home() {
                   key={name}
                 >
                   <img
-                    src={`/images/editorial/${image}`}
-                    alt={name + " handmade jewelry study"}
+                    src={image}
+                    alt={name + " silver jewelry study"}
                     loading="lazy"
                   />
                   <span className="journey-card-number">0{index + 1}</span>
@@ -677,10 +677,7 @@ export function Home() {
                 <p>{collectionNotes[index]}</p>
               </div>
               <img
-                src={
-                  heroCollectionVisuals[collection.slug]?.src ??
-                  collection.image
-                }
+                src={collection.image}
                 alt={collection.name + " jewelry"}
                 loading="lazy"
               />
